@@ -1,0 +1,52 @@
+# ========================
+# 1. Model Weights & Checkpoints
+# ========================
+checkpoints/
+checkpoints_*/
+*.bin
+*.pt
+*.pth
+*.safetensors
+
+# ========================
+# 2. Data & Experiment Outputs
+# ========================
+Data/evaluation/
+Data/llm_outputs/
+Data/predictions/
+
+# ========================
+# 3. Logs
+# ========================
+log/
+logs/
+*.log
+
+# ========================
+# 4. Virtual Environments
+# ========================
+NER/
+venv/
+.venv/
+env/
+
+# ========================
+# 5. Local / Cluster Shell Scripts
+# ========================
+*.sh
+
+# ========================
+# 6. Python Bytecode & Cache
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# ========================
+# 7. IDE & OS Metadata
+# ========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
