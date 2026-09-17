@@ -34,12 +34,12 @@ Token-level micro-averaged Precision / Recall / F1 (%) on the SkillSpan test set
 
 | Model | Task | Precision | Recall | F1-Score |
 | :--- | :--- | :---: | :---: | :---: |
-| BERT-field (domain-adapted) | Skill | 74.38 | 77.28 | 75.80 |
-| BERT-field (domain-adapted) | Knowledge | 75.27 | 82.66 | 78.79 |
-| **BERT-field (domain-adapted)** | **Overall** | **74.69** | **79.06** | **76.81** |
-| BERT-based (general-purpose) | Skill | 74.72 | 73.36 | 74.03 |
-| BERT-based (general-purpose) | Knowledge | 72.56 | 81.56 | 76.80 |
-| **BERT-based (general-purpose)** | **Overall** | **73.94** | **76.07** | **74.99** |
+| jobbert-base-cased | Skill | 74.38 | 77.28 | 75.80 |
+| jobbert-base-cased | Knowledge | 75.27 | 82.66 | 78.79 |
+| **jobbert-base-cased** | **Overall** | **74.69** | **79.06** | **76.81** |
+| BERT-based| Skill | 74.72 | 73.36 | 74.03 |
+| BERT-based  | Knowledge | 72.56 | 81.56 | 76.80 |
+| **BERT-based** | **Overall** | **73.94** | **76.07** | **74.99** |
 
 ### Generative LLMs (Zero-shot / Few-shot / Full-shot LoRA)
 
