@@ -16,29 +16,43 @@ Extracting structured skill representations from job descriptions is essential f
 
 This project is built and benchmarked on the **SkillSpan** dataset:
 * **Source**: [kris927b/SkillSpan](https://github.com/kris927b/SkillSpan)
-* **Annotation**: Job postings annotated at sentence level for hard skills, soft skills, and domain knowledge spans.
+* **Annotation**: Job postings annotated at sentence level for hard skills, soft skills, and domain knowledge spans, covering the *tech* and *house* sectors.
 
-The dataset files are placed in the `Data/raw/` directory:
-* `dev.json`: Validation set for model selection and checkpointing.
-* `test.json`: Standard benchmark test split.
-* `test_empty.json`: Negative/empty context samples for evaluating precision.
-* `train.json`: Standard training split.
-* `train_entities.jsonl`: Formatted entity span annotations for extraction tasks.
-* `train_merged.json`: Aggregated training set combining multi-source annotations.
+**Statistics**:
+
+| Split | Job Postings | Sentences | Skill Spans | Knowledge Spans |
+| :--- | :---: | :---: | :---: | :---: |
+| Train + Dev | 198 | 7,974 | 3,291 | 4,062 |
+| Test | 65 | 3,569 | 1,090 | 1,174 |
 
 
 ## Results
 
-<!-- Placeholder for experimental evaluation metrics -->
+Token-level micro-averaged Precision / Recall / F1 (%) on the SkillSpan test set.
 
-| Architecture | Backbone Model | Strategy | Precision | Recall | F1-Score | Notes |
-| :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| Transformer | BERT / DeBERTa | Token Classification | - | - | - | Baseline token tagging |
-| LLM | Qwen / Llama | LoRA Fine-Tuning | - | - | - | Full-shot PEFT |
-| LLM | Qwen / Llama | In-Context Inference | - | - | - | Few-shot prompting |
+### Discriminative Pre-trained Models
 
-*Detailed token-level and span-level metrics will be updated upon final evaluation runs.*
+| Model | Task | Precision | Recall | F1-Score |
+| :--- | :--- | :---: | :---: | :---: |
+| BERT-field (domain-adapted) | Skill | 74.38 | 77.28 | 75.80 |
+| BERT-field (domain-adapted) | Knowledge | 75.27 | 82.66 | 78.79 |
+| **BERT-field (domain-adapted)** | **Overall** | **74.69** | **79.06** | **76.81** |
+| BERT-based (general-purpose) | Skill | 74.72 | 73.36 | 74.03 |
+| BERT-based (general-purpose) | Knowledge | 72.56 | 81.56 | 76.80 |
+| **BERT-based (general-purpose)** | **Overall** | **73.94** | **76.07** | **74.99** |
 
+### Generative LLMs (Zero-shot / Few-shot / Full-shot LoRA)
+
+| Model | Setting | Precision | Recall | F1-Score |
+| :--- | :--- | :---: | :---: | :---: |
+| Qwen3-8B | Zero-shot | 40.31 | 56.48 | 47.04 |
+| Qwen3-8B | Few-shot | 37.15 | 70.94 | 48.76 |
+| Qwen3-8B | Full-shot (LoRA) | 70.44 | 78.86 | 74.41 |
+| Llama-3.1-8B-Instruct | Zero-shot | 36.16 | 49.29 | 41.72 |
+| Llama-3.1-8B-Instruct | Few-shot | 32.32 | 61.66 | 42.41 |
+| Llama-3.1-8B-Instruct | Full-shot (LoRA) | 73.22 | 77.23 | 75.17 |
+
+*Overall rows are micro-averaged across the Skill and Knowledge subtasks. Full per-task and per-domain (tech vs. house) breakdowns are reported in the paper.*
 
 
 ## File Structure
@@ -69,3 +83,4 @@ NER_Job/
 │   └── evaluate_token_level.py           # Precision, Recall, and F1 calculation scripts
 ├── requirements.txt                      # Project package dependencies
 └── README.md                             # Project overview and documentation
+```
