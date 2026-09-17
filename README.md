@@ -54,6 +54,54 @@ Token-level micro-averaged Precision / Recall / F1 (%) on the SkillSpan test set
 
 *Overall rows are micro-averaged across the Skill and Knowledge subtasks. Full per-task and per-domain (tech vs. house) breakdowns are reported in the paper.*
 
+## Getting Started
+
+### 1. Installation
+
+```bash
+uv pip install -r requirements.txt
+```
+
+### 2. Prepare the Data
+
+Place the dataset files under `Data/raw/`, then run the preprocessing scripts to generate BIO-tagged and span-level formats:
+
+```bash
+python data_processing/convert_bio_to_ner.py
+python data_processing/convert_to_test_format.py
+```
+
+### 3. Train a Model
+
+**Transformer baselines (BERT / JobBERT):**
+```bash
+python Training/transformer_training.py --model_name bert-base-cased
+```
+
+**LLM full-shot fine-tuning (LoRA):**
+```bash
+python Training/train_fullshot_lora.py --model_name Qwen/Qwen3-8B
+```
+
+### 4. Run Inference
+
+```bash
+# Transformer checkpoints
+python predict/predict_transformers.py
+
+# Zero-shot / few-shot LLM prompting
+python predict/run_llm_inference.py --shot_mode few-shot
+
+# Full-shot LoRA fine-tuned model
+python predict/run_fullshot_inference.py
+```
+
+### 5. Evaluate
+
+```bash
+python Evaluation/evaluate_token_level.py --pred_file <path_to_predictions> --gold_file Data/raw/test.json
+```
+
 
 ## File Structure
 
